@@ -1,38 +1,141 @@
-.App {
-  text-align: center;
+/*********************************************************************
+* CSS for General
+*********************************************************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+    width: 100%;
+    height: 1000px;
+    background-image: url('./Assets/background.jpg');
+    background-size: cover;
+    overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#app-title {
+    position: relative;
+    top: .5em;
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: .25em;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.current-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 20em;
 }
 
-.App-link {
-  color: #61dafb;
+/*********************************************************************
+* CSS for Search Component
+*********************************************************************/
+
+.searchbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 6em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.searchbar {
+    width: 25em;
+    height: 2em;
+    padding: .2em;
+    border: none;
+    margin-top: 1em;
+}
+
+/*********************************************************************
+* CSS for Current Card Component
+*********************************************************************/
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15em;
+    height: 17em;
+    background: rgb(241, 240, 240);
+    margin-top: 4em;
+    padding: 1em;
+    box-shadow: 5px 5px 5px rgba(68,68,68,0.6)
+}
+
+.card-container:hover {
+    transition: .3s ease-in-out;
+    transform: scale(1.02);
+}
+
+.card-title {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.card-temp {
+    font-size: 4em;
+    margin-left: .2em;
+}
+
+.card-icon {
+    width: 7em;
+    height: 7em;
+}
+
+/*********************************************************************
+* CSS for Forecast Card Component
+*********************************************************************/
+
+.future-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 20em;
+    margin-top: 1.5em;
+}
+
+.future-card:hover {
+    transition: .3s ease-in-out;
+    transform: scale(1.02);
+}
+
+.future-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 11em;
+    height: 13em;
+    margin-left: 1em;
+    margin-right: 1em;
+    background: rgb(241, 240, 240);
+    margin-top: 5em;
+    padding: 1em;
+    box-shadow: 5px 5px 5px rgba(68,68,68,0.6)
+}
+
+.future-card-icon {
+    width: 5em;
+    height: 5em;
+}
+
+.future-card-title {
+    font-size: 1.25em;
+    margin-bottom: 1em;
+}
+
+.future-card-temp {
+    font-size: 2.5em;
+    margin-left: .2em;
+    margin-top: .25em;
 }
