@@ -68,11 +68,11 @@
     background: rgb(241, 240, 240);
     margin-top: 4em;
     padding: 1em;
-    box-shadow: 5px 5px 5px rgba(68,68,68,0.6)
+    box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
+    transition: .25s;
 }
 
 .card-container:hover {
-    transition: .3s ease-in-out;
     transform: scale(1.02);
 }
 
@@ -103,10 +103,11 @@
     width: 100vw;
     height: 20em;
     margin-top: 1.5em;
+    transition: .25s;
 }
 
 .future-card:hover {
-    transition: .3s ease-in-out;
+    transition: .25s;
     transform: scale(1.02);
 }
 

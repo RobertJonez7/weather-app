@@ -10,6 +10,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [city, setCity] = useState('Rexburg');
   const API_KEY = "5558c35373b8b9530daa4b1aef055dbc";
+  //const API_KEY = `${process.env.REACT_APP_WEATHER_API_KEY}`
+  console.log(API_KEY)
 
   //Calls async function when the state changes
   useEffect(() => {
