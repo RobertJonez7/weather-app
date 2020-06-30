@@ -3,34 +3,39 @@ import axios from 'axios';
 import CurrentCard from './CurrentCard';
 import Search from './Search';
 import FutureForecast from './FutureForecast';
+import Chart from './Chart';
 import './App.css';
 
 function App() {
   const [weather, setWeather] = useState({ currentWeather: null, futureWeather: null });
   const [loading, setLoading] = useState(true);
-  const [city, setCity] = useState('Rexburg');
+  const [city, setCity] = useState('Seattle');
+  const [day, setDay] = useState(1);
   const API_KEY = "5558c35373b8b9530daa4b1aef055dbc";
-  //const API_KEY = `${process.env.REACT_APP_WEATHER_API_KEY}`
-  console.log(API_KEY)
 
-  //Calls async function when the state changes
+  /**************************************************************************
+   * Calls async function when the state changes
+   *************************************************************************/
   useEffect(() => {
     fetchData();
   }, [city]);
 
-  //Makes an API call to gather data
+  /**************************************************************************
+   * Makes an API call to gather data
+   *************************************************************************/
   const fetchData = async () => {
     const currentForecast = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_KEY}&units=imperial`);
     const futureForecast = await axios(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=imperial`);
 
     setWeather({ currentWeather: currentForecast.data, futureForecast: futureForecast.data })
-  
     if(weather) {
       setLoading(false);
     }
   }
 
-  //Changes city upon user request
+  /**************************************************************************
+   * Changes city upon user request
+   *************************************************************************/
   const changeCity = (e) => {
     setCity(e.target.value);
     if(city === '') {
@@ -38,23 +43,41 @@ function App() {
     }
   }
 
+  /**************************************************************************
+   * Changes city upon user request
+   *************************************************************************/
   //Generate the current forecast component
   const generateCurrentCard = () => {
     if(!loading) {
-      let temp = parseInt(weather.currentWeather.main.temp);
+      let temp, desc, type;
+      let name = weather.currentWeather.name;
+      if(day === 1) {
+        temp = parseInt(weather.currentWeather.main.temp);
+        desc = weather.currentWeather.weather[0].description;
+        type = weather.currentWeather.weather[0].main;
+      }
+      else {
+        temp = parseInt(weather.futureForecast.list[day].main.temp);
+        desc = weather.futureForecast.list[day].weather[0].description;
+        type = weather.futureForecast.list[day].weather[0].main;
+      }
       return(
-        <CurrentCard name={weather.currentWeather.name} temp={temp} desc={weather.currentWeather.weather[0].description} type={weather.currentWeather.weather[0].main}/>
+        <CurrentCard name={name} temp={temp} desc={desc} type={type} />
       )
     }
   }
 
-  //Generates future forecast component
+  /**************************************************************************
+   * Generates future forecast component
+   *************************************************************************/
   const generateFutureCards = () => {
     let items = [];
     if(!loading) {
-      for(let i = 0; i < 40; i+=8) {
+      let temp = parseInt(weather.currentWeather.main.temp);
+      items.push(<FutureForecast key={10} date="Today" type={weather.currentWeather.weather[0].main} temp={temp} desc={weather.currentWeather.weather[0].description} onClick={() => {setDay(1)}}/>);
+
+      for(let i = 0; i < 32; i += 8) {
         const date = weather.futureForecast.list[i].dt_txt;
-        console.log(date);
         const split = date.split('-');
         const splitTwo = split[2].split(" ")
 
@@ -65,26 +88,42 @@ function App() {
         const type = weather.futureForecast.list[i].weather[0].main;
         const temp = parseInt(weather.futureForecast.list[i].main.temp);
         const desc = weather.futureForecast.list[i].weather[0].description;
-        console.log(weather);
-        items.push(<FutureForecast key={i} date={finalDate} type={type} temp={temp} desc={desc} />)
+
+        items.push(<FutureForecast key={i} date={finalDate} type={type} temp={temp} desc={desc} onClick={() => {setDay(i)}} />)
       }
       return items;
     }
   }
 
+  /**************************************************************************
+   * Gets line data for chart
+   *************************************************************************/
+  const getLineData = () => {
+    if(!loading) {
+      let line = [];
+      if(day === 1) {
+        return;
+      }
+      for(let i = day; i < day + 8; i++) {
+        line.push(weather.futureForecast.list[i].main.temp);
+      }
+      return line;
+    }
+  }
+
   const current = generateCurrentCard();
   const future = generateFutureCards();
+  const data = getLineData();
+  console.log(weather.futureForecast);
 
   return (
     <div>
       <div className="container">
-        <h1 id="app-title">Weather App</h1>
-        <Search changeCity={changeCity} />
-        
+        <Search changeCity={changeCity} name={city} />
         <div className="current-card-container">
           {current}
+          <Chart data={data} />
         </div>
-
         <div className="future-card-container">
           {future}
         </div>

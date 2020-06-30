@@ -12,83 +12,134 @@
 
 .container {
     width: 100%;
-    height: 1000px;
-    background-image: url('./Assets/background.jpg');
+
     background-size: cover;
     overflow-x: hidden;
+    background-color: rgb(252, 252, 252);
 }
 
 #app-title {
     position: relative;
     top: .5em;
     text-align: center;
-    color: white;
+    color: black;
     font-size: 2.5em;
     margin-bottom: .25em;
 }
 
-.current-card-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 20em;
+#title-icon {
+    position: relative;
+    top: .4em;
+    right: .25em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 /*********************************************************************
 * CSS for Search Component
 *********************************************************************/
 
-.searchbar-container {
+nav {
     display: flex;
-    justify-content: center;
     align-items: center;
+    padding-right: 1em;
+    height: 50px;
     width: 100vw;
-    height: 6em;
+    padding: 1em;
+    padding-left: 4.5em;
+    padding-right: 4.5em;
+}
+
+#searchIcon {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.search {
+    position: relative;
+    right: 2em;
+    width: 2em;
+    height: 2em;
+    margin-left: 1em;
+}
+
+.search-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 7.5em;
 }
 
 .searchbar {
-    width: 25em;
+    justify-self: center;
+    position: relative;
+    right: 2em;
+    width: 20em;
     height: 2em;
-    padding: .2em;
+    padding: .3em;
     border: none;
-    margin-top: 1em;
+    background-color: rgb(233, 233, 233);
 }
+
+::placeholder { 
+    color: black;
+    opacity: 1;
+  }
+  
+  :-ms-input-placeholder { 
+    color: black;
+  }
+  
+  ::-ms-input-placeholder { 
+    color: black;
+  }
 
 /*********************************************************************
 * CSS for Current Card Component
 *********************************************************************/
 
+.card-total-contain {
+    position: absolute;
+    top: 1em;
+    left: 5em;
+}
+
 .card-container {
+    display: flex;
+    align-items: center;
+}
+
+.current-card-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 15em;
-    height: 17em;
-    background: rgb(241, 240, 240);
-    margin-top: 4em;
-    padding: 1em;
-    box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
-    transition: .25s;
-}
-
-.card-container:hover {
-    transform: scale(1.02);
-}
-
-.card-title {
-    font-size: 1.5em;
+    width: 100vw;
+    height: 20em;
     margin-bottom: 1em;
 }
 
+.city-name {
+    justify-self: flex-start;
+    width: 50%;
+    font-size: 3em;
+    margin-right: 1em;
+}
+
+.card-desc {
+    font-size: 1.5em;
+    margin-left: .1em;
+}
+
 .card-temp {
-    font-size: 4em;
+    font-size: 3em;
     margin-left: .2em;
 }
 
 .card-icon {
-    width: 7em;
-    height: 7em;
+    width: 5em;
+    height: 5em;
+    margin-top: .5em;
 }
 
 /*********************************************************************
@@ -100,34 +151,32 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 100vw;
+    width: 100%;
     height: 20em;
-    margin-top: 1.5em;
+    margin-top: -4em;
     transition: .25s;
-}
-
-.future-card:hover {
-    transition: .25s;
-    transform: scale(1.02);
 }
 
 .future-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 11em;
-    height: 13em;
+    width: 9em;
+    min-height: 2em;
     margin-left: 1em;
     margin-right: 1em;
-    background: rgb(241, 240, 240);
-    margin-top: 5em;
+    margin-top: -2em;
     padding: 1em;
-    box-shadow: 5px 5px 5px rgba(68,68,68,0.6)
+    cursor: pointer;
+}
+
+.future-card:target {
+    background-color: cadetblue;
 }
 
 .future-card-icon {
-    width: 5em;
-    height: 5em;
+    width: 4em;
+    height: 4em;
 }
 
 .future-card-title {
@@ -139,4 +188,24 @@
     font-size: 2.5em;
     margin-left: .2em;
     margin-top: .25em;
+}
+
+.future-row-container {
+    display: flex;
+}
+
+.future-desc {
+    margin-top: 1em;
+}
+
+/*********************************************************************
+* CSS for Line Graph Component
+*********************************************************************/
+.line-container {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    height: 10em;
+    margin: 0 auto;
+    margin-top: 8em;
 }

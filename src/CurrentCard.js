@@ -7,7 +7,7 @@ import snow from './Assets/snow.png'
 import thunder from './Assets/thunder.png'
 import atmosphere from './Assets/atmosphere.png'
 
-const CurrentCard = ({name, temp, desc, type}) => {
+const CurrentCard = ({ name, temp, desc, type }) => {
     let icon = '';
     console.log(icon);
     if(type === 'Clouds') {
@@ -30,11 +30,13 @@ const CurrentCard = ({name, temp, desc, type}) => {
     }
 
     return(
-        <div className="card-container">
-            <div className="card-title">{name}</div>
-            <img className="card-icon" src={icon}/>
-            <div className="card-temp">{temp + '\u00B0'}</div>
-            <div>{desc}</div>
+        <div className="card-total-contain">
+            <div className="card-container">
+                <div className="city-name">{name}</div>
+                <img className="card-icon" src={icon}/>
+                <div className="card-temp">{temp + '\u00B0'}</div>
+            </div>
+            <div className="card-desc">{desc}</div>
         </div>
     )
 }
