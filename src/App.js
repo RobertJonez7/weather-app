@@ -4,6 +4,7 @@ import CurrentCard from './CurrentCard';
 import Search from './Search';
 import FutureForecast from './FutureForecast';
 import Chart from './Chart';
+import Switch from './Switch';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [city, setCity] = useState('Seattle');
   const [day, setDay] = useState(1);
+  const [units, setUnits] = useState('imperial');
   const API_KEY = "5558c35373b8b9530daa4b1aef055dbc";
 
   /**************************************************************************
@@ -18,14 +20,14 @@ function App() {
    *************************************************************************/
   useEffect(() => {
     fetchData();
-  }, [city]);
+  }, [city, units]);
 
   /**************************************************************************
    * Makes an API call to gather data
    *************************************************************************/
   const fetchData = async () => {
-    const currentForecast = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_KEY}&units=imperial`);
-    const futureForecast = await axios(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=imperial`);
+    const currentForecast = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_KEY}&units=${units}`);
+    const futureForecast = await axios(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=${units}`);
 
     setWeather({ currentWeather: currentForecast.data, futureForecast: futureForecast.data })
     if(weather) {
@@ -46,7 +48,6 @@ function App() {
   /**************************************************************************
    * Changes city upon user request
    *************************************************************************/
-  //Generate the current forecast component
   const generateCurrentCard = () => {
     if(!loading) {
       let temp, desc, type;
@@ -73,6 +74,7 @@ function App() {
   const generateFutureCards = () => {
     let items = [];
     if(!loading) {
+      let count = 0;
       let temp = parseInt(weather.currentWeather.main.temp);
       items.push(<FutureForecast key={10} date="Today" type={weather.currentWeather.weather[0].main} temp={temp} desc={weather.currentWeather.weather[0].description} onClick={() => {setDay(1)}}/>);
 
@@ -88,8 +90,8 @@ function App() {
         const type = weather.futureForecast.list[i].weather[0].main;
         const temp = parseInt(weather.futureForecast.list[i].main.temp);
         const desc = weather.futureForecast.list[i].weather[0].description;
-
-        items.push(<FutureForecast key={i} date={finalDate} type={type} temp={temp} desc={desc} onClick={() => {setDay(i)}} />)
+        
+        items.push(<FutureForecast key={i} id={count} date={finalDate} type={type} temp={temp} desc={desc} onClick={() => {setDay(i)}} />);
       }
       return items;
     }
@@ -102,7 +104,9 @@ function App() {
     if(!loading) {
       let line = [];
       if(day === 1) {
-        return;
+        for(let i = 0; i < 8; i++) {
+          line.push(weather.futureForecast.list[i].main.temp);
+        }
       }
       for(let i = day; i < day + 8; i++) {
         line.push(weather.futureForecast.list[i].main.temp);
@@ -111,15 +115,23 @@ function App() {
     }
   }
 
+  /**************************************************************************
+   * Switch units between farenheit and celsius
+   *************************************************************************/
+  const switchUnits = () => {
+    units === 'imperial' ? setUnits('metric') : setUnits('imperial');
+    console.log(units);
+  }
+
   const current = generateCurrentCard();
   const future = generateFutureCards();
   const data = getLineData();
-  console.log(weather.futureForecast);
 
   return (
-    <div>
+    <>
       <div className="container">
         <Search changeCity={changeCity} name={city} />
+        <Switch switchUnits={switchUnits} units={units} />
         <div className="current-card-container">
           {current}
           <Chart data={data} />
@@ -128,7 +140,7 @@ function App() {
           {future}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

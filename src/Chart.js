@@ -8,6 +8,7 @@ const Chart = ({ data }) => {
         datasets: [
           {
             fill: true,
+            responsive: true,
             lineTension: 0.5,
             backgroundColor: 'teal',
             borderColor: 'teal',
@@ -20,7 +21,8 @@ const Chart = ({ data }) => {
         ]
     }
 
-    const option = {        
+    const option = { 
+      maintainAspectRatio: false,       
         legend: {
           display: false,
         }

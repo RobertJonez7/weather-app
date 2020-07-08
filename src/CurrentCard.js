@@ -9,7 +9,6 @@ import atmosphere from './Assets/atmosphere.png'
 
 const CurrentCard = ({ name, temp, desc, type }) => {
     let icon = '';
-    console.log(icon);
     if(type === 'Clouds') {
         icon = overcast;
     }
@@ -33,7 +32,7 @@ const CurrentCard = ({ name, temp, desc, type }) => {
         <div className="card-total-contain">
             <div className="card-container">
                 <div className="city-name">{name}</div>
-                <img className="card-icon" src={icon}/>
+                <img className="card-icon" src={icon} alt="current-icon" />
                 <div className="card-temp">{temp + '\u00B0'}</div>
             </div>
             <div className="card-desc">{desc}</div>

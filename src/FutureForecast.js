@@ -8,7 +8,6 @@ import atmosphere from './Assets/atmosphere.png'
 
 const FutureForecast = ({ date, type, temp, desc, onClick }) => {
     let icon = '';
-    console.log(icon);
     if(type === 'Clouds') {
         icon = overcast;
     }
@@ -32,7 +31,7 @@ const FutureForecast = ({ date, type, temp, desc, onClick }) => {
         <div className="future-card" onClick={onClick}>
             <div className="future-card-title">{date}</div>
             <div className="future-row-container">
-                <img className="future-card-icon" src={icon} />
+                <img className="future-card-icon" src={icon} alt="future-icon" />
                 <div className="future-card-temp">{temp + '\u00B0'}</div> 
             </div>
             <div className="future-desc">{desc}</div>
